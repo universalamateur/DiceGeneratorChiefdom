@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  text-align: center;
+}
+.first-face {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dice {
+  padding: 4px;
+  background-color: tomato;
+  width: 25px;
+  height: 25px;
+  border-radius: 10%;
+  margin-right : 5px;
+  margin-left : 5px;
+}
+
+.dot{
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color:white;
+}
+
+.second-face{
+  display: flex ;
+  justify-content: space-between;
+}
+
+.second-face .dot:nth-of-type(2) {
+  align-self: flex-end;
+}
+
+.third-face {
+  display: flex;
+  justify-content: space-between;
+}
+
+.third-face .dot:nth-of-type(1) {
+  align-self :flex-end;
+}
+
+.third-face .dot:nth-of-type(2) {
+  align-self :center;
+}
+
+.fourth-face , .sixth-face, .fifth-face{
+  display: flex;
+  justify-content: space-between;
+}
+
+.fourth-face .column , .sixth-face .column, .fifth-face .column{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.fifth-face .column:nth-of-type(2) {
+  justify-content: center;
+}
+</style>
+
+<script>
+var diceLog= new Array ( );
+
+function randonDieResult(){
+    return (Math.floor(Math.random() *6)+1);
+}   
+
+function dieFace(dieResult){
+  switch(dieResult) {
+    case 1:
+      return '<div class="dice first-face"><span class="dot"></span></div>';
+      break;
+    case 2:
+      return '<div class="dice second-face"><span class="dot"></span><span class="dot"></span></div>';  
+      break;
+    case 3:
+      return '<div class="dice third-face"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>';  
+      break;
+    case 4:
+      return '<div class="fourth-face dice"><div class="column"><span class="dot"></span><span class="dot"></span></div><div class="column"><span class="dot"></span><span class="dot"></span></div></div>';  
+      break;
+    case 5:
+      return '<div class="fifth-face dice"><div class="column"><span class="dot"></span><span class="dot"></span></div><div class="column"><span class="dot"></span></div><div class="column"><span class="dot"></span><span class="dot"></span></div></div>';  
+      break;
+    case 6:
+      return '<div class="sixth-face dice"><div class="column"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><div class="column"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>';  
+      break;
+}
+}
+
+function throwdice(){
+  let die1=randonDieResult();
+  let die2=randonDieResult();
+  let die3=randonDieResult();
+  diceLog.push([die1,die2,die3]);
+  document.getElementById('D1');
+  D1.innerHTML = dieFace(die1);
+  document.getElementById('D2');
+  D2.innerHTML = dieFace(die2);
+  document.getElementById('D3');
+  D3.innerHTML = dieFace(die3);
+  document.getElementById('DiceLog');
+  DiceLog.innerHTML=diceLogreturn();
+}
+
+function diceLogreturn(){
+  let returnString='<th>Runde</th><th>W1</th><th>W2</th><th>W3</th></tr>';
+  fLen = diceLog.length;
+  for (i = fLen-1; i >=0 ; i--) {
+    returnString += "<tr><td>" + (i+1) + "</td>";
+    returnString += "<td>" + diceLog[i][0] + "</td>";
+    returnString += "<td>" + diceLog[i][1] + "</td>";
+    returnString += "<td>" + diceLog[i][2] + "</td></tr>";
+    
+  }
+  return returnString;
+}
+
+function startTheRoles(){
+    diceLog=[];
+    document.getElementById('D1');
+    D1.innerHTML = '<div class="dice first-face"></div>';
+    document.getElementById('D2');
+    D2.innerHTML = '<div class="dice first-face"></div>';
+    document.getElementById('D3');
+    D3.innerHTML = '<div class="dice first-face"></div>';
+    document.getElementById('ButtonsTable');
+    ButtonsTable.innerHTML='<td colspan="2"><form><input type="button" value="Throw" onClick="throwdice()"></td><td><input type="button" value="Stop" onClick="Stop()"></td></form>';
+    document.getElementById('DiceLog');
+    DiceLog.innerHTML=diceLogreturn();
+}
+function Stop(){
+    diceLog=[];
+    document.getElementById('D1');
+    D1.innerHTML = '<div class="dice first-face"></div>';
+    document.getElementById('D2');
+    D2.innerHTML = '<div class="dice first-face"></div>';
+    document.getElementById('D3');
+    D3.innerHTML = '<div class="dice first-face"></div>';
+    document.getElementById('ButtonsTable');
+    ButtonsTable.innerHTML='<td colspan="3"><form><input type="button" value="Start new" onClick="startTheRoles()"></form></td>';
+}
+</script>
+
+<body>
+  <table>
+    <tr>
+      <td id="D1"></td>
+      <td id="D2"></td>
+      <td id="D3"></td>
+    </tr>
+    <tr id="ButtonsTable">
+      <td colspan="3">
+        <form>
+        <input type="button" value="Start!" onClick="startTheRoles()">
+        </form>
+      </td>
+    </tr>
+  </table>
+  <table id="DiceLog">     
+  </table>
+</body>
+</html>
+
