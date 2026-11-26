@@ -1,5 +1,9 @@
 # DiceGeneratorChiefdom
 
+![Project logo](./logo.png)
+
+[Lead repository on GitHub](https://github.com/universalamateur/DiceGeneratorChiefdom)
+
 This is a dice roller for the game Chiefdom as help to play Online
 
 It roles 3d6 over rounds until the game is stopped and lists the roled resulkts for all rounds until then.
